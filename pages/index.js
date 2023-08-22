@@ -124,6 +124,7 @@ const Home = () => {
                                     seller: `0x${makeId(3)}...${makeId(4)}`,
                                     owner: `0x${makeId(3)}...${makeId(4)}`,
                                     description: "Cool NFT",
+                                    price: (10 - item * 0.534).toFixed(2),
                                 }}
                             />
                         ))}
