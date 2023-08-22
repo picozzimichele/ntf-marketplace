@@ -1,4 +1,4 @@
-import { Banner, CreatorCard } from "../components";
+import { Banner, CreatorCard, NFTCard } from "../components";
 import { useEffect, useRef, useState } from "react";
 import images from "../assets";
 import Image from "next/image";
@@ -28,7 +28,7 @@ const Home = () => {
         const { current: parent } = parentRef;
         const { current: scroll } = scrollRef;
 
-        if (scroll?.scrollWidth >= parent.offsetWidth) {
+        if (scroll?.scrollWidth >= parent?.offsetWidth) {
             setHideButtons(false);
         } else {
             setHideButtons(true);
@@ -52,6 +52,7 @@ const Home = () => {
                     childStyles="md:text-4xl sm:text-2xl xs:text-xl text-left"
                     name="Discover, collect, and sell extraordinary NFTs"
                 />
+                {/* Best Creators */}
                 <div>
                     <h1 className="font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold ml-4 xs:ml-0">
                         Best Creators
@@ -103,6 +104,29 @@ const Home = () => {
                                 </>
                             )}
                         </div>
+                    </div>
+                </div>
+                {/* NFTs List */}
+                <div className="mt-10">
+                    <div className="flexBetween mx-4 xs:mx-0 minlg:mx-8 sm:flex-col sm:items-start">
+                        <h1 className="flex-1 font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">
+                            Hot Bids
+                        </h1>
+                        <div>SearchBar</div>
+                    </div>
+                    <div className="flex mt-3 w-full flex-wrap justify-start md:justify-center">
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
+                            <NFTCard
+                                key={`nft-${item}`}
+                                nft={{
+                                    item,
+                                    name: `Nifty NFT ${item}`,
+                                    seller: `0x${makeId(3)}...${makeId(4)}`,
+                                    owner: `0x${makeId(3)}...${makeId(4)}`,
+                                    description: "Cool NFT",
+                                }}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>
