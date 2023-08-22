@@ -40,7 +40,22 @@ export default function Navbar() {
             </div>
             {/* Dark Mode Toggle */}
             <div className="flex flex-initial flex-row justify-end">
-                <div className="flex items-center mr-2"></div>
+                <div className="flex items-center mr-2">
+                    <input
+                        type="checkbox"
+                        className="checkbox"
+                        id="checkbox"
+                        onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+                    />
+                    <label
+                        htmlFor="checkbox"
+                        className="flexBetween label rounded-2xl bg-black p-1 relative h-4 w-8"
+                    >
+                        <i className="fas fa-sun" />
+                        <i className="fas fa-moon" />
+                        <div className="ball w-3 h-3 absolute rounded-full bg-white" />
+                    </label>
+                </div>
             </div>
         </nav>
     );
