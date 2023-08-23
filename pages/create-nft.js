@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { Button } from "../components";
+import { Button, Input } from "../components";
 import images from "../assets";
 
 export default function CreateNFT() {
@@ -46,11 +46,51 @@ export default function CreateNFT() {
                                 <p className="dark:text-white text-nft-black-1 font-poppins font-semibold text-xl">
                                     JPG, PNG, GIF, WEBM. Max 100mb.
                                 </p>
-                                <div className="my-12 w-full"></div>
+                                <div className="my-12 w-full flex justify-center">
+                                    <Image
+                                        src={images.upload}
+                                        width={100}
+                                        height={100}
+                                        objectFit="contain"
+                                        alt="upload"
+                                        className={theme === "light" && "filter invert"}
+                                    />
+                                </div>
+                                <p className="dark:text-white text-nft-black-1 font-poppins font-semibold text-sm">
+                                    Drag and drop your file here
+                                </p>
+                                <p className="dark:text-white text-nft-black-1 font-poppins font-semibold text-sm mt-2">
+                                    or Browse media on your device
+                                </p>
                             </div>
                         </div>
+                        {/* {fileUrl && (
+                            <aside>
+                                <div>
+                                    <img src={fileUrl} alt="asset_file" />
+                                </div>
+                            </aside>
+                        )} */}
                     </div>
                 </div>
+                <Input
+                    inputType="input"
+                    title="Name"
+                    placeholder="NFT Name"
+                    handleClick={() => {}}
+                />
+                <Input
+                    inputType="textarea"
+                    title="Description"
+                    placeholder="NFT Description"
+                    handleClick={() => {}}
+                />
+                <Input
+                    inputType="number"
+                    title="Price"
+                    placeholder="NFT Price"
+                    handleClick={() => {}}
+                />
             </div>
         </div>
     );
