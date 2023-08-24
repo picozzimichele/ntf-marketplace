@@ -135,6 +135,9 @@ const Home = () => {
                                         description: nft.description,
                                         image: nft.image,
                                         name: nft.name,
+                                        seller: nft.seller,
+                                        owner: nft.owner,
+                                        price: nft.price,
                                     }}
                                 />
                             ))}

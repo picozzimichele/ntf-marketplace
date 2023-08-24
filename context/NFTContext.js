@@ -117,7 +117,7 @@ export const NFTProvider = ({ children }) => {
                     data: { image, name, description },
                 } = await axios.get(tokenURI);
                 console.log({ image, name, description });
-                const price = ethers.utils.parseUnits(unformattedPrice.toString(), "ether");
+                const price = ethers.utils.formatUnits(unformattedPrice.toString(), "ether");
 
                 return {
                     price,
