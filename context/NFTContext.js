@@ -58,7 +58,7 @@ export const NFTProvider = ({ children }) => {
     const uploadToIPFS = async (file) => {
         try {
             const added = await client.add({ content: file });
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+            const url = `https://ipfs.io/ipfs/${added.path}`;
             return url;
         } catch (error) {
             console.log("Error uploading file: ", error);
@@ -75,7 +75,7 @@ export const NFTProvider = ({ children }) => {
 
         try {
             const added = await client.add(data);
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+            const url = `https://ipfs.io/ipfs/${added.path}`;
 
             await createSale(url, price);
             router.push("/");
@@ -103,13 +103,52 @@ export const NFTProvider = ({ children }) => {
         await transaction.wait();
     };
 
+    const fetchNFTs = async () => {
+        const provider = new ethers.providers.JsonRpcProvider();
+        const contract = await fetchContract(provider);
+
+        const data = await contract.fetchMarketItems();
+
+        const items = await Promise.all(
+            data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
+                const tokenURI = await contract.tokenURI(tokenId);
+                console.log({ tokenURI });
+                const {
+                    data: { image, name, description },
+                } = await axios.get(tokenURI);
+                console.log({ image, name, description });
+                const price = ethers.utils.parseUnits(unformattedPrice.toString(), "ether");
+
+                return {
+                    price,
+                    tokenId: tokenId.toNumber(),
+                    seller,
+                    owner,
+                    image,
+                    name,
+                    description,
+                    tokenURI,
+                };
+            })
+        );
+
+        return items;
+    };
+
     useEffect(() => {
         checkIfWalletIsConnected();
     }, []);
 
     return (
         <NFTContext.Provider
-            value={{ nftCurrency, connectWallet, currentAccount, uploadToIPFS, createNFT }}
+            value={{
+                nftCurrency,
+                connectWallet,
+                currentAccount,
+                uploadToIPFS,
+                createNFT,
+                fetchNFTs,
+            }}
         >
             {children}
         </NFTContext.Provider>
