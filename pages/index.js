@@ -127,6 +127,17 @@ const Home = () => {
                         <div>SearchBar</div>
                     </div>
                     <div className="flex mt-3 w-full flex-wrap justify-start md:justify-center">
+                        {nfts.length !== 0 &&
+                            nfts.map((nft) => (
+                                <NFTCard
+                                    key={nft.tokenId}
+                                    nft={{
+                                        description: nft.description,
+                                        image: nft.image,
+                                        name: nft.name,
+                                    }}
+                                />
+                            ))}
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
                             <NFTCard
                                 key={`nft-${item}`}
