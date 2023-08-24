@@ -52,10 +52,6 @@ const Home = () => {
         fetchNFTs().then((items) => setNfts(items));
     }, []);
 
-    useEffect(() => {
-        console.log({ nfts });
-    }, [nfts]);
-
     return (
         <div className="flex justify-center sm:px-4 p-12">
             <div className="w-full minmd:w-4/5">
