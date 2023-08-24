@@ -46,7 +46,26 @@ export default function MyNFTs() {
                     </h1>
                 </div>
             ) : (
-                <div></div>
+                <div className="sm:px-4 p-12 w-full minmd:w-4/5 flexCenter flex-col">
+                    <div className="flex-1 w-full flex flex-row sm:flex-col px-4 xs:px-0 minlg:px-8">
+                        SearchBar
+                    </div>
+                    <div className="mt-3 w-full flex flex-wrap">
+                        {nfts.map((nft) => (
+                            <NFTCard
+                                key={nft.tokenId}
+                                nft={{
+                                    description: nft.description,
+                                    image: nft.image,
+                                    name: nft.name,
+                                    seller: nft.seller,
+                                    owner: nft.owner,
+                                    price: nft.price,
+                                }}
+                            />
+                        ))}
+                    </div>
+                </div>
             )}
         </div>
     );
