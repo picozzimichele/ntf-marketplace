@@ -7,7 +7,7 @@ import { shortenAddress } from "../utils/shortenAddress";
 import { useRouter } from "next/router";
 
 export default function NFTDetails() {
-    const { currentAccount } = useContext(NFTContext);
+    const { currentAccount, nftCurrency } = useContext(NFTContext);
     const router = useRouter();
     const [nft, setNFT] = useState({
         image: "",
@@ -69,6 +69,30 @@ export default function NFTDetails() {
                             {shortenAddress(nft.seller)}
                         </p>
                     </div>
+                </div>
+                <div className="mt-10 flex flex-col">
+                    <div className="w-full border-b dark:border-nft-black-1 border-nft-gray-1 flex flex-row">
+                        <p className="font-poppings dark:text-white text-nft-black-1 text-md minlg:text-base font-medium mb-2">
+                            Details
+                        </p>
+                    </div>
+                    <div className="mt-3">
+                        <p className="font-poppings dark:text-white text-nft-black-1 text-md">
+                            {nft.description}
+                        </p>
+                    </div>
+                </div>
+                <div className="flex flex-row sm:flex-col mt-10">
+                    {currentAccount === nft.seller.toLowerCase() ? (
+                        <p className="font-poppings dark:text-white text-nft-black-1 text-md border border-gray p-2">
+                            You cannot buy your own NFT
+                        </p>
+                    ) : (
+                        <Button
+                            classStyles="mr-5 sm:mr-0 rounded-xl"
+                            btnName={`Buy for ${nft.price} ${nftCurrency}`}
+                        />
+                    )}
                 </div>
             </div>
         </div>
