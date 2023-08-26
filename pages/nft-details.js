@@ -1,10 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { NFTContext } from "../context/NFTContext";
-import { NFTCard, Loader, Button } from "../components";
+import { NFTCard, Loader, Button, Modal } from "../components";
 import Image from "next/image";
 import images from "../assets";
 import { shortenAddress } from "../utils/shortenAddress";
 import { useRouter } from "next/router";
+
+const PaymentBodyCmp = ({ nft, nftCurrency }) => {
+    return <div>TEST</div>;
+};
 
 export default function NFTDetails() {
     const { currentAccount, nftCurrency } = useContext(NFTContext);
@@ -95,6 +99,12 @@ export default function NFTDetails() {
                     )}
                 </div>
             </div>
+            <Modal
+                header="Check Out"
+                body={<PaymentBodyCmp nft={nft} nftCurrency={nftCurrency} />}
+                footer={() => <div>Custom Footer</div>}
+                handleClick={() => {}}
+            />
         </div>
     );
 }
