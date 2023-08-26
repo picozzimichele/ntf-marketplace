@@ -62,6 +62,7 @@ export default function NFTDetails() {
         seller: "",
     });
     const [isLoading, setIsLoading] = useState(true);
+    const [paymentModal, setPaymentModal] = useState(false);
 
     useEffect(() => {
         if (!router.isReady) return;
@@ -132,18 +133,34 @@ export default function NFTDetails() {
                         </p>
                     ) : (
                         <Button
+                            handleClick={() => setPaymentModal(true)}
                             classStyles="mr-5 sm:mr-0 rounded-xl"
                             btnName={`Buy for ${nft.price} ${nftCurrency}`}
                         />
                     )}
                 </div>
             </div>
-            <Modal
-                header="Check Out"
-                body={<PaymentBodyCmp nft={nft} nftCurrency={nftCurrency} />}
-                footer={() => <div>Custom Footer</div>}
-                handleClose={() => {}}
-            />
+            {paymentModal && (
+                <Modal
+                    header="Check Out"
+                    body={<PaymentBodyCmp nft={nft} nftCurrency={nftCurrency} />}
+                    footer={
+                        <div className="flex flex-row">
+                            <Button
+                                handleClick={() => {}}
+                                btnName="Checkout"
+                                classStyles="mr-5 rounded-xl"
+                            />
+                            <Button
+                                handleClick={() => setPaymentModal(false)}
+                                btnName="Cancel"
+                                classStyles="rounded-xl"
+                            />
+                        </div>
+                    }
+                    handleClose={() => setPaymentModal(false)}
+                />
+            )}
         </div>
     );
 }
