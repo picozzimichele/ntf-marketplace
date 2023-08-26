@@ -50,24 +50,33 @@ const PaymentBodyCmp = ({ nft, nftCurrency }) => {
 };
 
 export default function NFTDetails() {
-    const { currentAccount, nftCurrency } = useContext(NFTContext);
+    const { currentAccount, nftCurrency, buyNFT } = useContext(NFTContext);
     const router = useRouter();
     const [nft, setNFT] = useState({
         image: "",
         name: "",
         description: "",
-        tokenId: "",
+        itemId: "",
         owner: "",
         price: "",
         seller: "",
     });
     const [isLoading, setIsLoading] = useState(true);
     const [paymentModal, setPaymentModal] = useState(false);
+    const [successModal, setSuccessModal] = useState(false);
+
+    const checkout = async () => {
+        console.log(nft.price, nft.tokenId);
+        await buyNFT(nft);
+        setPaymentModal(false);
+        setSuccessModal(true);
+    };
 
     useEffect(() => {
         if (!router.isReady) return;
         //this is an object containing all the info that we are passing through the url
         setNFT(router.query);
+        console.log(nft);
         setIsLoading(false);
     }, [router.isReady]);
 
@@ -147,7 +156,7 @@ export default function NFTDetails() {
                     footer={
                         <div className="flex flex-row">
                             <Button
-                                handleClick={() => {}}
+                                handleClick={() => checkout()}
                                 btnName="Checkout"
                                 classStyles="mr-5 rounded-xl"
                             />
@@ -155,6 +164,36 @@ export default function NFTDetails() {
                                 handleClick={() => setPaymentModal(false)}
                                 btnName="Cancel"
                                 classStyles="rounded-xl"
+                            />
+                        </div>
+                    }
+                    handleClose={() => setPaymentModal(false)}
+                />
+            )}
+            {successModal && (
+                <Modal
+                    header={"Payment Successful"}
+                    body={
+                        <div
+                            onClick={() => setSuccessModal(false)}
+                            className="flexCenter flex-col text-center"
+                        >
+                            <div className="relative w-52 h-52">
+                                <Image src={nft.image} objectFit="cover" layout="fill" />
+                            </div>
+                            <p className="font-poppins dark:text-white text-nft-black-1 font-normal text-sm minlg:text-xl mt-10">
+                                You successfully purchased{" "}
+                                <span className="font-semibold">{nft.name}</span> from{" "}
+                                <span className="font-semibold">{shortenAddress(nft.seller)}</span>
+                            </p>
+                        </div>
+                    }
+                    footer={
+                        <div className="flexCenter flex-col">
+                            <Button
+                                handleClick={() => router.push("/my-nfts")}
+                                btnName="Check it out"
+                                classStyles="sm:mb-5 rounded-xl"
                             />
                         </div>
                     }

@@ -174,6 +174,22 @@ export const NFTProvider = ({ children }) => {
         return items;
     };
 
+    const buyNFT = async (nft) => {
+        const web3modal = new Web3Modal();
+        const connection = await web3modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const contract = await fetchContract(signer);
+
+        const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+
+        //issue with tokenId
+        const transaction = await contract.createMarketSale(nft.tokenId, { value: price });
+
+        await transaction.wait();
+    };
+
     useEffect(() => {
         checkIfWalletIsConnected();
     }, []);
@@ -188,6 +204,7 @@ export const NFTProvider = ({ children }) => {
                 createNFT,
                 fetchNFTs,
                 fetchMyNFTsOrListedNFTs,
+                buyNFT,
             }}
         >
             {children}
