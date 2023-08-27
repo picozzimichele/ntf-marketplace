@@ -134,6 +134,7 @@ const Home = () => {
                                         seller: nft.seller,
                                         owner: nft.owner,
                                         price: nft.price,
+                                        itemId: nft.tokenId,
                                     }}
                                 />
                             ))}

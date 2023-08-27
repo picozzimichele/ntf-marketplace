@@ -93,9 +93,7 @@ export const NFTProvider = ({ children }) => {
         const price = ethers.utils.parseUnits(formInputPrice, "ether");
         const contract = await fetchContract(signer);
         console.log({ contract });
-        console.log(2);
         const listingPrice = await contract.getListingPrice();
-        console.log(3);
 
         const transaction = await contract.createToken(url, price, {
             value: listingPrice.toString(),
@@ -184,7 +182,7 @@ export const NFTProvider = ({ children }) => {
 
         const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
 
-        //issue with tokenId
+        //TODO issue with tokenId
         const transaction = await contract.createMarketSale(nft.tokenId, { value: price });
 
         await transaction.wait();
