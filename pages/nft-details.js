@@ -91,7 +91,7 @@ export default function NFTDetails() {
     return (
         <div className="relative flex justify-center md:flex-col min-h-screen">
             <div className="relative flex-1 flexCenter sm:px-4 px-12 border-r md:border-b dark:border-nft-black-1 border-nft-gray-1">
-                <div className="relative w-[557px] h-[557px] minmd:w-2/3 minmd:h-2/3 sm:w-full sm:h-300">
+                <div className="relative w-[557px] h-[557px] minmd:w-2/3 minmd:h-2/3 sm:w-full sm:h-300 my-5 xl:my-0">
                     <Image
                         src={nft?.image}
                         objectFit="cover"
@@ -100,7 +100,7 @@ export default function NFTDetails() {
                     />
                 </div>
             </div>
-            <div className="flex-1 justify-start sm:px-4 px-12 sm:pb-4">
+            <div className="flex-1 justify-start sm:px-4 px-12 sm:pb-4 md:mt-5 mt-10 ">
                 <div className="flex flex-row sm:flex-col">
                     <h2 className="font-poppings dark:text-white text-nft-black-1 font-semibold text-2xl minlg:text-3xl">
                         {nft.name}
