@@ -53,7 +53,11 @@ export default function ResellNFTs() {
                 />
                 {image && <img src={image} className="rounded-md mt-4" width={350} />}
                 <div className="mt-7 w-full flex justify-end">
-                    <Button btnName="List NFT" classStyles={"rounded-xl"} handleClick={() => {}} />
+                    <Button
+                        btnName="List NFT"
+                        classStyles={"rounded-xl"}
+                        handleClick={() => resell()}
+                    />
                 </div>
             </div>
         </div>

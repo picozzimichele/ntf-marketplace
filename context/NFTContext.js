@@ -204,6 +204,7 @@ export const NFTProvider = ({ children }) => {
                 fetchNFTs,
                 fetchMyNFTsOrListedNFTs,
                 buyNFT,
+                createSale,
             }}
         >
             {children}
