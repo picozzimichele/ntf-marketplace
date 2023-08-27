@@ -182,7 +182,6 @@ export const NFTProvider = ({ children }) => {
 
         const price = ethers.utils.parseUnits(unformattedPrice.toString(), "ether");
 
-        //TODO issue with tokenId
         const transaction = await contract.createMarketSale(itemId, { value: price });
 
         await transaction.wait();

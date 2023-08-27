@@ -10,6 +10,13 @@ export default function MyNFTs() {
     const [nfts, setNFTs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        fetchMyNFTsOrListedNFTs("MyNFTs").then((items) => {
+            setNFTs(items);
+            setIsLoading(false);
+        });
+    }, []);
+
     if (isLoading) {
         return (
             <div className="flexStart min-h-screen">
