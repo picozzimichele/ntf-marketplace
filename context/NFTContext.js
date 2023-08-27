@@ -172,7 +172,7 @@ export const NFTProvider = ({ children }) => {
         return items;
     };
 
-    const buyNFT = async (nft) => {
+    const buyNFT = async ({ unformattedPrice, itemId }) => {
         const web3modal = new Web3Modal();
         const connection = await web3modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
@@ -180,10 +180,10 @@ export const NFTProvider = ({ children }) => {
 
         const contract = await fetchContract(signer);
 
-        const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
+        const price = ethers.utils.parseUnits(unformattedPrice.toString(), "ether");
 
         //TODO issue with tokenId
-        const transaction = await contract.createMarketSale(nft.tokenId, { value: price });
+        const transaction = await contract.createMarketSale(itemId, { value: price });
 
         await transaction.wait();
     };

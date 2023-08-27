@@ -66,8 +66,8 @@ export default function NFTDetails() {
     const [successModal, setSuccessModal] = useState(false);
 
     const checkout = async () => {
-        console.log(nft.price, nft.tokenId);
-        await buyNFT(nft);
+        console.log(nft.price, nft.itemId);
+        await buyNFT({ unformattedPrice: nft.price, itemId: nft.itemId });
         setPaymentModal(false);
         setSuccessModal(true);
     };
