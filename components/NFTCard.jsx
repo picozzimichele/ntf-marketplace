@@ -5,7 +5,7 @@ import images from "../assets";
 import { NFTContext } from "../context/NFTContext";
 import { shortenAddress } from "../utils/shortenAddress";
 
-export default function NFTCard({ nft }) {
+export default function NFTCard({ nft, onProfilePage }) {
     const { nftCurrency } = useContext(NFTContext);
     return (
         <Link href={{ pathname: `nft-details`, query: nft }}>
@@ -28,7 +28,11 @@ export default function NFTCard({ nft }) {
                             {nft.price} <span className="normal">{nftCurrency}</span>
                         </p>
                         <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xs minlg:text-lg">
-                            {nft.seller.length > 10 ? shortenAddress(nft.seller) : nft.seller}
+                            {onProfilePage
+                                ? shortenAddress(nft.owner)
+                                : nft.seller.length > 10
+                                ? shortenAddress(nft.seller)
+                                : nft.seller}
                         </p>
                     </div>
                 </div>

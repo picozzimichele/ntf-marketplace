@@ -69,7 +69,9 @@ export default function MyNFTs() {
                                     owner: nft.owner,
                                     price: nft.price,
                                     itemId: nft.tokenId,
+                                    tokenURI: nft.tokenURI,
                                 }}
+                                onProfilePage={true}
                             />
                         ))}
                     </div>

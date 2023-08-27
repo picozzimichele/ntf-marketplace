@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { NFTContext } from "../context/NFTContext";
-import { NFTCard, Loader, Button, Modal } from "../components";
+import { Loader, Button, Modal } from "../components";
 import Image from "next/image";
 import images from "../assets";
 import { shortenAddress } from "../utils/shortenAddress";
@@ -60,13 +60,13 @@ export default function NFTDetails() {
         owner: "",
         price: "",
         seller: "",
+        tokenURI: "",
     });
     const [isLoading, setIsLoading] = useState(true);
     const [paymentModal, setPaymentModal] = useState(false);
     const [successModal, setSuccessModal] = useState(false);
 
     const checkout = async () => {
-        console.log(nft.price, nft.itemId);
         await buyNFT({ unformattedPrice: nft.price, itemId: nft.itemId });
         setPaymentModal(false);
         setSuccessModal(true);
@@ -140,10 +140,20 @@ export default function NFTDetails() {
                         <p className="font-poppings dark:text-white text-nft-black-1 text-md border border-gray p-2">
                             You cannot buy your own NFT
                         </p>
+                    ) : currentAccount === nft.owner.toLocaleLowerCase() ? (
+                        <Button
+                            handleClick={() =>
+                                router.push(
+                                    `/resell-nft?tokenId=${nft.itemId}&tokenURI=${nft.tokenURI}`
+                                )
+                            }
+                            classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
+                            btnName={`List on Marketplace`}
+                        />
                     ) : (
                         <Button
                             handleClick={() => setPaymentModal(true)}
-                            classStyles="mr-5 sm:mr-0 rounded-xl"
+                            classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
                             btnName={`Buy for ${nft.price} ${nftCurrency}`}
                         />
                     )}
