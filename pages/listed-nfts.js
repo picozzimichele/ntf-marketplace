@@ -51,6 +51,7 @@ export default function ListedNFTs() {
                                     owner: nft.owner,
                                     price: nft.price,
                                     itemId: nft.tokenId,
+                                    tokenURI: nft.tokenURI,
                                 }}
                             />
                         ))}
