@@ -13,6 +13,8 @@ const Home = () => {
     const { fetchNFTs } = useContext(NFTContext);
     const [hideButtons, setHideButtons] = useState(false);
     const [nfts, setNfts] = useState([]);
+    const [nftsCopy, setNFTsCopy] = useState([]);
+    const [activeSelect, setActiveSelect] = useState("Recently Added");
     const parentRef = useRef(null);
     const scrollRef = useRef(null);
     const { theme } = useTheme();
@@ -41,7 +43,25 @@ const Home = () => {
         }
     };
 
-    const topCreators = getCreators(nfts);
+    const topCreators = getCreators(nftsCopy);
+
+    const handleSearch = (value) => {
+        const filteredNFTs = nfts.filter(({ name }) => {
+            return name.toLowerCase().includes(value.toLowerCase());
+        });
+
+        if (filteredNFTs.length) {
+            setNfts(filteredNFTs);
+        } else {
+            //show all NFTs
+            setNfts(nftsCopy);
+        }
+    };
+    const clearSearch = () => {
+        if (nfts.length && nftsCopy.length) {
+            setNfts(nftsCopy);
+        }
+    };
 
     useEffect(() => {
         isScrollable();
@@ -53,12 +73,31 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        fetchNFTs().then((items) => setNfts(items));
+        fetchNFTs().then((items) => {
+            setNfts(items);
+            setNFTsCopy(items);
+        });
     }, []);
 
     useEffect(() => {
-        topCreators;
-    }, [nfts]);
+        const sortedNFTs = [...nfts];
+
+        switch (activeSelect) {
+            case "Price (low to high)":
+                setNfts(sortedNFTs.sort((a, b) => a.price - b.price));
+                break;
+            case "Price (high to low)":
+                setNfts(sortedNFTs.sort((a, b) => b.price - a.price));
+                break;
+            case "Recently Added":
+                setNfts(sortedNFTs.sort((a, b) => b.tokenId - a.tokenId));
+                break;
+
+            default:
+                setNfts(nfts);
+                break;
+        }
+    }, [activeSelect]);
 
     return (
         <div className="flex justify-center sm:px-4 p-12">
@@ -128,8 +167,13 @@ const Home = () => {
                         <h1 className="flex-1 font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">
                             Hot Bids
                         </h1>
-                        <div>
-                            <SearchBar />
+                        <div className="flex-2 sm:w-full flex flex-row sm:flex-col">
+                            <SearchBar
+                                activeSelect={activeSelect}
+                                setActiveSelect={setActiveSelect}
+                                handleSearch={handleSearch}
+                                clearSearch={clearSearch}
+                            />
                         </div>
                     </div>
                     <div className="flex mt-3 w-full flex-wrap justify-start md:justify-center">
