@@ -5,7 +5,7 @@ import Image from "next/image";
 import { makeId } from "../utils/makeId";
 import { useTheme } from "next-themes";
 import { NFTContext } from "../context/NFTContext";
-import { use } from "chai";
+import { getCreators } from "../utils/getTopCreators";
 
 const Home = () => {
     const { fetchNFTs } = useContext(NFTContext);
@@ -38,6 +38,10 @@ const Home = () => {
             setHideButtons(true);
         }
     };
+
+    const topCreators = getCreators(nfts);
+
+    console.log("topCreators", topCreators);
 
     useEffect(() => {
         isScrollable();
@@ -139,19 +143,6 @@ const Home = () => {
                                     }}
                                 />
                             ))}
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
-                            <NFTCard
-                                key={`nft-${item}`}
-                                nft={{
-                                    item,
-                                    name: `Nifty NFT ${item}`,
-                                    seller: `0x${makeId(3)}...${makeId(4)}`,
-                                    owner: `0x${makeId(3)}...${makeId(4)}`,
-                                    description: "Cool NFT",
-                                    price: (10 - item * 0.534).toFixed(2),
-                                }}
-                            />
-                        ))}
                     </div>
                 </div>
             </div>
