@@ -9,6 +9,20 @@ export default function MyNFTs() {
     const { fetchMyNFTsOrListedNFTs, currentAccount } = useContext(NFTContext);
     const [nfts, setNFTs] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [activeSelect, setActiveSelect] = useState("Recently Added");
+
+    const handleSearch = (value) => {
+        const filteredNFTs = nfts.filter(({ name }) => {
+            return name.toLowerCase().includes(value.toLowerCase());
+        });
+
+        if (filteredNFTs.length) {
+            setNFTs(filteredNFTs);
+        } else {
+            //show all NFTs
+        }
+    };
+    const clearSearch = () => {};
 
     useEffect(() => {
         fetchMyNFTsOrListedNFTs("MyNFTs").then((items) => {
@@ -55,7 +69,12 @@ export default function MyNFTs() {
             ) : (
                 <div className="sm:px-4 p-12 w-full minmd:w-4/5 flexCenter flex-col">
                     <div className="flex-1 w-full flex flex-row sm:flex-col px-4 xs:px-0 minlg:px-8">
-                        <SearchBar />
+                        <SearchBar
+                            activeSelect={activeSelect}
+                            setActiveSelect={setActiveSelect}
+                            handleSearch={handleSearch}
+                            clearSearch={clearSearch}
+                        />
                     </div>
                     <div className="mt-3 w-full flex flex-wrap">
                         {nfts.map((nft) => (

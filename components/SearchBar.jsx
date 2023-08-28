@@ -3,10 +3,30 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import images from "../assets";
 
-export default function SearchBar() {
+export default function SearchBar({ activeSelect, setActiveSelect, handleSearch, clearSearch }) {
     const [search, setSearch] = useState("");
+    const [debaunceSearch, setDebaunceSearch] = useState(search);
     const [toggle, setToggle] = useState(false);
     const { theme } = useTheme();
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setSearch(debaunceSearch);
+            console.log("search", debaunceSearch);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, [debaunceSearch]);
+
+    useEffect(() => {
+        if (search) {
+            handleSearch(search);
+            console.log("search", search);
+        } else {
+            //clear search
+        }
+    }, [search]);
+
     return (
         <>
             <div className="flex-1 flexCenter dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 px-4 rounded-md py-3">
@@ -22,8 +42,10 @@ export default function SearchBar() {
                     type="text"
                     placeholder="Search NFT"
                     className="dark:bg-nft-black-2 bg-white mx-4 w-full dark:text-white text-nft-black-1 text-xs outline-none"
-                    onChange={() => {}}
-                    value=""
+                    onChange={(e) => {
+                        setDebaunceSearch(e.target.value);
+                    }}
+                    value={debaunceSearch}
                 />
             </div>
             <div

@@ -18,8 +18,6 @@ export default function CreateNFT() {
         //upload file to IPFS
         const url = await uploadToIPFS(acceptedFile[0]);
 
-        console.log({ url });
-
         setFileUrl(url);
     }, []);
 
