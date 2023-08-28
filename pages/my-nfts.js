@@ -8,6 +8,7 @@ import { shortenAddress } from "../utils/shortenAddress";
 export default function MyNFTs() {
     const { fetchMyNFTsOrListedNFTs, currentAccount } = useContext(NFTContext);
     const [nfts, setNFTs] = useState([]);
+    const [nftsCopy, setNFTsCopy] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [activeSelect, setActiveSelect] = useState("Recently Added");
 
@@ -20,13 +21,19 @@ export default function MyNFTs() {
             setNFTs(filteredNFTs);
         } else {
             //show all NFTs
+            setNFTs(nftsCopy);
         }
     };
-    const clearSearch = () => {};
+    const clearSearch = () => {
+        if (nfts.length && nftsCopy.length) {
+            setNFTs(nftsCopy);
+        }
+    };
 
     useEffect(() => {
         fetchMyNFTsOrListedNFTs("MyNFTs").then((items) => {
             setNFTs(items);
+            setNFTsCopy(items);
             setIsLoading(false);
         });
     }, []);

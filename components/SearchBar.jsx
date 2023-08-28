@@ -12,7 +12,6 @@ export default function SearchBar({ activeSelect, setActiveSelect, handleSearch,
     useEffect(() => {
         const timer = setTimeout(() => {
             setSearch(debaunceSearch);
-            console.log("search", debaunceSearch);
         }, 1000);
 
         return () => clearTimeout(timer);
@@ -21,9 +20,9 @@ export default function SearchBar({ activeSelect, setActiveSelect, handleSearch,
     useEffect(() => {
         if (search) {
             handleSearch(search);
-            console.log("search", search);
         } else {
             //clear search
+            clearSearch();
         }
     }, [search]);
 
