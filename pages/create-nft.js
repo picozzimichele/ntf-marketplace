@@ -60,7 +60,7 @@ export default function CreateNFT() {
                                         height={100}
                                         objectFit="contain"
                                         alt="upload"
-                                        className={theme === "light" && "filter invert"}
+                                        className={theme === "light" ? "filter invert" : ""}
                                     />
                                 </div>
                                 <p className="dark:text-white text-nft-black-1 font-poppins font-semibold text-sm">

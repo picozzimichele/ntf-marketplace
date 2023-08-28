@@ -132,7 +132,7 @@ const Home = () => {
                                 >
                                     {topCreators.slice(0, 8).map((creator, index) => (
                                         <CreatorCard
-                                            key={`creator-${creator}`}
+                                            key={`creator-${index}`}
                                             rank={index + 1}
                                             creatorImage={images[`creator${index + 1}`]}
                                             creatorName={shortenAddress(creator.seller)}
@@ -151,7 +151,9 @@ const Home = () => {
                                                     layout="fill"
                                                     objectFit="contain"
                                                     alt="left_arrow"
-                                                    className={theme === "light" && "filter invert"}
+                                                    className={
+                                                        theme === "light" ? "filter invert" : ""
+                                                    }
                                                 />
                                             </div>
                                             {/* Right Arrow */}
@@ -166,7 +168,9 @@ const Home = () => {
                                                     layout="fill"
                                                     objectFit="contain"
                                                     alt="right_arrow"
-                                                    className={theme === "light" && "filter invert"}
+                                                    className={
+                                                        theme === "light" ? "filter invert" : ""
+                                                    }
                                                 />
                                             </div>
                                         </>

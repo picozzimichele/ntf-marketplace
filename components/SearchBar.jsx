@@ -35,7 +35,7 @@ export default function SearchBar({ activeSelect, setActiveSelect, handleSearch,
                     width={20}
                     height={20}
                     alt="search"
-                    className={theme === "light" && "filter invert"}
+                    className={theme === "light" ? "filter invert" : ""}
                 />
                 <input
                     type="text"
@@ -62,7 +62,7 @@ export default function SearchBar({ activeSelect, setActiveSelect, handleSearch,
                     width={15}
                     height={15}
                     alt="arrow"
-                    className={theme === "light" && "filter invert"}
+                    className={theme === "light" ? "filter invert" : ""}
                 />
                 {toggle && (
                     <div className="absolute top-full right-0 left-0 w-full mt-3 z-10 dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 py-3 px-4 rounded-md">

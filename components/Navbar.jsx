@@ -99,6 +99,10 @@ export default function Navbar() {
         checkActive(active, setActive, router);
     }, [router.pathname]);
 
+    useEffect(() => {
+        setTheme("dark");
+    }, []);
+
     return (
         <nav className="flexBetween w-full z-10 fixed p-4 flex-row border-b dark:bg-nft-dark bg-white dark:border-nft-black-1 border-nft-gray-1">
             {/* Logo */}
@@ -118,7 +122,7 @@ export default function Navbar() {
                     </div>
                 </Link>
                 <Link href="/">
-                    <div onClick={() => {}} className="hidden md:flex">
+                    <div onClick={() => setIsOpen(false)} className="hidden md:flex">
                         <Image
                             src={images.logo02}
                             objectFit="contain"
@@ -165,7 +169,7 @@ export default function Navbar() {
                         height={20}
                         alt="close"
                         onClick={() => setIsOpen(false)}
-                        className={theme === "light" && "filter invert"}
+                        className={theme === "light" ? "filter invert" : ""}
                     />
                 ) : (
                     <Image
@@ -175,7 +179,7 @@ export default function Navbar() {
                         height={25}
                         alt="menu"
                         onClick={() => setIsOpen(true)}
-                        className={theme === "light" && "filter invert"}
+                        className={theme === "light" ? "filter invert" : ""}
                     />
                 )}
                 {isOpen && (

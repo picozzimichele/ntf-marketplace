@@ -27,7 +27,7 @@ export const NFTContext = createContext();
 
 export const NFTProvider = ({ children }) => {
     const [currentAccount, setCurrentAccount] = useState("");
-    const nftCurrency = "MATIC";
+    const nftCurrency = "ETH";
 
     const checkIfWalletIsConnected = async () => {
         if (!window.ethereum) {
