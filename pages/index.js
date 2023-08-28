@@ -1,4 +1,4 @@
-import { Banner, CreatorCard, NFTCard } from "../components";
+import { Banner, CreatorCard, NFTCard, SearchBar } from "../components";
 import { useEffect, useRef, useState, useContext } from "react";
 import images from "../assets";
 import Image from "next/image";
@@ -128,7 +128,9 @@ const Home = () => {
                         <h1 className="flex-1 font-poppins dark:text-white text-nft-black-1 text-2xl minlg:text-4xl font-semibold sm:mb-4">
                             Hot Bids
                         </h1>
-                        <div>SearchBar</div>
+                        <div>
+                            <SearchBar />
+                        </div>
                     </div>
                     <div className="flex mt-3 w-full flex-wrap justify-start md:justify-center">
                         {nfts.length !== 0 &&

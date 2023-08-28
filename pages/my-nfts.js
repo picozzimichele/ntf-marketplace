@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { NFTContext } from "../context/NFTContext";
-import { NFTCard, Loader, Banner } from "../components";
+import { NFTCard, Loader, Banner, SearchBar } from "../components";
 import Image from "next/image";
 import images from "../assets";
 import { shortenAddress } from "../utils/shortenAddress";
@@ -55,7 +55,7 @@ export default function MyNFTs() {
             ) : (
                 <div className="sm:px-4 p-12 w-full minmd:w-4/5 flexCenter flex-col">
                     <div className="flex-1 w-full flex flex-row sm:flex-col px-4 xs:px-0 minlg:px-8">
-                        SearchBar
+                        <SearchBar />
                     </div>
                     <div className="mt-3 w-full flex flex-wrap">
                         {nfts.map((nft) => (
