@@ -54,7 +54,7 @@ export default function SearchBar({ activeSelect, setActiveSelect, handleSearch,
                 className="relative flexBetween ml-4 sm:ml-0 sm:mt-2 min-w-190 cursor-pointer dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 px-4 rounded-md py-3"
             >
                 <p className="font-poppins dark:text-white text-nft-black-1 text-xs font-normal">
-                    Recently Listed
+                    {activeSelect}
                 </p>
                 <Image
                     src={images.arrow}
@@ -68,7 +68,11 @@ export default function SearchBar({ activeSelect, setActiveSelect, handleSearch,
                     <div className="absolute top-full right-0 left-0 w-full mt-3 z-10 dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 py-3 px-4 rounded-md">
                         {["Recently Added", "Price (low to high)", "Price (high to low)"].map(
                             (option) => (
-                                <p className="font-poppins dark:text-white text-nft-black-1 text-xs font-normal my-3 cursor-pointer">
+                                <p
+                                    className="font-poppins dark:text-white text-nft-black-1 text-xs font-normal my-3 cursor-pointer"
+                                    onClick={() => setActiveSelect(option)}
+                                    key={option}
+                                >
                                     {option}
                                 </p>
                             )
