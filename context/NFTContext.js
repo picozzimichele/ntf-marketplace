@@ -27,6 +27,7 @@ export const NFTContext = createContext();
 
 export const NFTProvider = ({ children }) => {
     const [currentAccount, setCurrentAccount] = useState("");
+    const [isLoadingNFTs, setIsLoadingNFTs] = useState(false);
     const nftCurrency = "ETH";
 
     const checkIfWalletIsConnected = async () => {
@@ -100,10 +101,13 @@ export const NFTProvider = ({ children }) => {
                   value: listingPrice.toString(),
               })
             : await contract.resellToken(id, price, { value: listingPrice.toString() });
+
+        setIsLoadingNFTs(true);
         await transaction.wait();
     };
 
     const fetchNFTs = async () => {
+        setIsLoadingNFTs(false);
         const provider = new ethers.providers.JsonRpcProvider();
         const contract = await fetchContract(provider);
 
@@ -136,6 +140,8 @@ export const NFTProvider = ({ children }) => {
     };
 
     const fetchMyNFTsOrListedNFTs = async (type) => {
+        setIsLoadingNFTs(false);
+
         const web3modal = new Web3Modal();
         const connection = await web3modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
@@ -184,7 +190,11 @@ export const NFTProvider = ({ children }) => {
 
         const transaction = await contract.createMarketSale(itemId, { value: price });
 
+        setIsLoadingNFTs(true);
+
         await transaction.wait();
+
+        setIsLoadingNFTs(false);
     };
 
     useEffect(() => {
@@ -203,6 +213,7 @@ export const NFTProvider = ({ children }) => {
                 fetchMyNFTsOrListedNFTs,
                 buyNFT,
                 createSale,
+                isLoadingNFTs,
             }}
         >
             {children}

@@ -5,19 +5,17 @@ import { useRouter } from "next/router";
 import axios from "axios";
 
 export default function ResellNFTs() {
-    const { createSale } = useContext(NFTContext);
+    const { createSale, isLoadingNFTs } = useContext(NFTContext);
     const router = useRouter();
     const { tokenId, tokenURI } = router.query;
     const [price, setPrice] = useState("");
     const [image, setImage] = useState("");
-    const [isLoading, setIsLoading] = useState(true);
 
     const fetchNFT = async () => {
         const { data } = await axios.get(tokenURI);
 
         setPrice(data.price);
         setImage(data.image);
-        setIsLoading(false);
     };
 
     const resell = async () => {
@@ -31,7 +29,7 @@ export default function ResellNFTs() {
         fetchNFT();
     }, [tokenURI]);
 
-    if (isLoading) {
+    if (isLoadingNFTs) {
         return (
             <div className="flexStart min-h-screen">
                 <Loader />
