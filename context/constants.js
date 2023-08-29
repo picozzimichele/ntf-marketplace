@@ -1,4 +1,6 @@
 import market from "./NFTMarketplace.json";
 
-export const MarketAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+//Seploia ETH deployed contract 0xBaE7dEdd7ba3274B01f8687647087cb53FB4cAF8
+
+export const MarketAddress = "0xBaE7dEdd7ba3274B01f8687647087cb53FB4cAF8";
 export const MarketAbi = market.abi;
